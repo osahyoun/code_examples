@@ -1,0 +1,16 @@
+service: WeatherInVenice
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: us-east-1
+  environment: ${file(./env.yml):${opt:stage, 'dev'}}
+
+functions:
+  weatherInVenice:
+    handler: function.getWeather
+    events:
+      - http:
+          path: weather
+          method: get
+          cors: true
